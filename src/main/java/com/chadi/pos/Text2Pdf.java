@@ -41,6 +41,8 @@ public class Text2Pdf {
             document.add(p);
         }
         document.close();
+
+
     }
     
     private String formatText()
@@ -71,24 +73,41 @@ public class Text2Pdf {
 
         StringBuilder sb=new StringBuilder();
         sb.append("-------------------------------------");
+        sb.append('\n');
         sb.append("      Restaurant Bill Receipt        ");
+        sb.append('\n');
         sb.append("-------------------------------------");
-
+        sb.append('\n');
         sb.append("-------------------------------------");
+        sb.append('\n');
         sb.append(" Food Name                 T.Price   ");
+        sb.append('\n');
         sb.append("-------------------------------------");
+        sb.append('\n');
         sb.append(" "+pn1a+"                  "+pp1a + " " );
+        sb.append('\n');
         sb.append(" "+pn2a+"                  "+pp2a+"  ");
+        sb.append('\n');
         sb.append(" "+pn3a+"                  "+pp3a+"  ");
+        sb.append('\n');
         sb.append(" "+pn4a+"                  "+pp4a+"  ");
+        sb.append('\n');
         sb.append("-------------------------------------");
+        sb.append('\n');
         sb.append(" Total amount: "+sum+"               ");
+        sb.append('\n');
         sb.append("-------------------------------------");
+        sb.append('\n');
         sb.append("          Free Home Delivery         ");
+        sb.append('\n');
         sb.append("             03111111111             ");
+        sb.append('\n');
         sb.append("*************************************");
+        sb.append('\n');
         sb.append("    THANKS TO VISIT OUR RESTUARANT   ");
+        sb.append('\n');
         sb.append("*************************************");
+        sb.append('\n');
 
         result =sb.toString();
 
