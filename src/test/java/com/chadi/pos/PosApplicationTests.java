@@ -1,5 +1,6 @@
 package com.chadi.pos;
 
+import org.junit.Assert;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -11,6 +12,10 @@ public class PosApplicationTests {
 
 	@Test
 	public void contextLoads() {
+		BillFormat billFormat=new BillFormat();
+		String result = billFormat.test();
+
+		Assert.assertEquals(result,"test");
 	}
 
 }
