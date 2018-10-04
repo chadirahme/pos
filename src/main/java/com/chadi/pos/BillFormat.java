@@ -1,10 +1,15 @@
 package com.chadi.pos;
 
+import org.apache.pdfbox.pdmodel.PDDocument;
+import org.apache.pdfbox.pdmodel.PDPage;
+import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
+import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
+
+import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.print.PageFormat;
-import java.awt.print.Paper;
-import java.awt.print.PrinterException;
-import java.awt.print.PrinterJob;
+import java.awt.image.BufferedImage;
+import java.awt.print.*;
+import java.io.File;
 
 public class BillFormat {
 
@@ -27,6 +32,23 @@ public class BillFormat {
 
         return "test";
     }
+
+    public String testDialog()
+    {
+        System.out.println("hiiii");
+        PrinterJob pj = PrinterJob.getPrinterJob();
+        pj.setPrintable(new BillPrintable(),getPageFormat(pj));
+        try {
+           // pj.setPrintable(new PFDPageable(document));
+            //pj.printDialog();
+            printToPDF("Test.pdf", new BillPrintable());
+        }
+        catch (Exception ex) {
+            ex.printStackTrace();
+        }
+        return "test";
+    }
+
 
     public PageFormat getPageFormat(PrinterJob pj)
     {
@@ -60,6 +82,53 @@ public class BillFormat {
     protected static double toPPI(double inch) {
         return inch * 72d;
     }
+
+    public static boolean printToPDF(String file, Printable printable) {
+        try {
+            PageFormat pageFormat = new PageFormat();
+            PDDocument doc = new PDDocument();
+            int width = (int)(pageFormat.getWidth());
+            int height = (int)(pageFormat.getHeight());
+
+            int currentPage = 0;
+            while(true) {
+                BufferedImage image = new BufferedImage(width, height,
+                        BufferedImage.TYPE_INT_RGB);
+                Graphics2D g2d = image.createGraphics();
+                g2d.setRenderingHint(RenderingHints.KEY_ANTIALIASING,
+                        RenderingHints.VALUE_ANTIALIAS_ON);
+                g2d.setColor(Color.WHITE);
+                g2d.fillRect(0, 0, width, height);
+                g2d.setColor(Color.BLACK);
+                g2d.setFont(new Font(Font.SANS_SERIF, Font.PLAIN, 12));
+
+                if(printable.print(g2d, pageFormat, currentPage) == Printable.NO_SUCH_PAGE) {
+                    break;
+                }
+                ImageIO.write(image, "png", new File("test.png"));
+
+                PDPage page = new PDPage();
+                doc.addPage(page);
+
+                PDJpeg img = new PDJpeg(doc, image); //Blurry
+                //PDPixelMap img = new PDPixelMap(doc, image); //Black
+                PDPageContentStream content = new PDPageContentStream(doc, page);
+                content.drawImage(img, 0, 0);
+                content.close();
+
+                ++currentPage;
+            }
+
+            doc.save(file);
+            doc.close();
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        return true;
+    }
+
+
 
 
 
