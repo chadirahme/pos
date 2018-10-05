@@ -13,7 +13,7 @@ public class PosApplicationTests {
 	@Test
 	public void contextLoads() {
 		BillFormat billFormat=new BillFormat();
-		String result = billFormat.testDialog();
+		String result = billFormat.test();//testDialog();
 		Assert.assertEquals(result,"test");
 	}
 

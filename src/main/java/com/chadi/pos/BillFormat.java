@@ -6,6 +6,7 @@ import org.apache.pdfbox.pdmodel.edit.PDPageContentStream;
 import org.apache.pdfbox.pdmodel.graphics.xobject.PDJpeg;
 
 import javax.imageio.ImageIO;
+import javax.print.PrintService;
 import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.awt.print.*;
@@ -19,10 +20,18 @@ public class BillFormat {
 
         PrinterJob pj = PrinterJob.getPrinterJob();
         pj.setPrintable(new BillPrintable(),getPageFormat(pj));
-        try {
-            pj.print();
+        try
+        {
+            for (PrintService printService : PrinterJob.lookupPrintServices()) {
+                System.out.println("check printer name of service " + printService);
+                if(printService.getName().contains("XPS")){
+                    pj.setPrintService(printService);
+                    pj.print();
+                }
+            }
+           // pj.print();
         }
-        catch (PrinterException ex) {
+        catch (Exception ex){//(PrinterException ex) {
             ex.printStackTrace();
         }
 

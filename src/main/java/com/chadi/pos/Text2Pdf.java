@@ -55,7 +55,7 @@ public class Text2Pdf {
         int headerRectHeighta=40;
 
         ///////////////// Product names Get ///////////
-        String  pn1a="Item";
+        String  pn1a="Item1";
         String pn2a="Item2";
         String pn3a="Item3";
         String pn4a="Item4";

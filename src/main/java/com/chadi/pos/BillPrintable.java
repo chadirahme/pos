@@ -67,9 +67,12 @@ public class BillPrintable implements Printable {
                 ///////////////// Product price Get ///////////
 
                 g2d.setFont(new Font("Monospaced",Font.PLAIN,9));
-                g2d.drawString("-------------------------------------",12,y);y+=yShift;
-                g2d.drawString("      Restaurant Bill Receipt        ",12,y);y+=yShift;
-                g2d.drawString("-------------------------------------",12,y);y+=headerRectHeight;
+                g2d.drawString("-------------------------------------",12,y);
+                y+=yShift;
+                g2d.drawString("      Restaurant Bill Receipt        ",12,y);
+                y+=yShift;
+                g2d.drawString("-------------------------------------",12,y);
+                y+=headerRectHeight;
 
                 g2d.drawString("-------------------------------------",10,y);y+=yShift;
                 g2d.drawString(" Food Name                 T.Price   ",10,y);y+=yShift;
